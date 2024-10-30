@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "109397302228",
+    "project_id": "studentrecord-58fef",
+    "storage_bucket": "studentrecord-58fef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109397302228:android:3611a02b84da88f4165441",
+        "android_client_info": {
+          "package_name": "com.sam.student_record"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAVEBX-Kzwca-qsZpCEnmmcR81AT_BZfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
