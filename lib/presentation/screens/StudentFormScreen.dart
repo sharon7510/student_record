@@ -15,15 +15,16 @@ class StudentFormScreen extends StatefulWidget {
 class _StudentFormScreenState extends State<StudentFormScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // Text controllers for each field
+  // Text controllers for other fields
   final TextEditingController nameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController domainController = TextEditingController();
   final TextEditingController hubController = TextEditingController();
   final TextEditingController batchController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
-  final TextEditingController monthController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
+
+  String? selectedDay;
+  String? selectedMonth;
+  String? selectedGender;
 
   @override
   void initState() {
@@ -35,9 +36,9 @@ class _StudentFormScreenState extends State<StudentFormScreen> {
       domainController.text = widget.student!.domain;
       hubController.text = widget.student!.hub;
       batchController.text = widget.student!.batch;
-      dateController.text = widget.student!.date;
-      monthController.text = widget.student!.month;
-      genderController.text = widget.student!.gender;
+      selectedDay = widget.student!.date;
+      selectedMonth = widget.student!.month;
+      selectedGender = widget.student!.gender;
     }
   }
 
@@ -49,9 +50,6 @@ class _StudentFormScreenState extends State<StudentFormScreen> {
     domainController.dispose();
     hubController.dispose();
     batchController.dispose();
-    dateController.dispose();
-    monthController.dispose();
-    genderController.dispose();
     super.dispose();
   }
 
@@ -64,9 +62,9 @@ class _StudentFormScreenState extends State<StudentFormScreen> {
         domain: domainController.text,
         hub: hubController.text,
         batch: batchController.text,
-        date: dateController.text,
-        month: monthController.text,
-        gender: genderController.text,
+        date: selectedDay ?? '',
+        month: selectedMonth ?? '',
+        gender: selectedGender ?? '',
       );
 
       final studentProvider = Provider.of<StudentProvider>(context, listen: false);
@@ -87,60 +85,152 @@ class _StudentFormScreenState extends State<StudentFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final hi = MediaQuery.of(context).size.height;
+    final wi = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(title: Text(widget.student == null ? 'Add Student' : 'Edit Student')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              TextFormField(
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
-                validator: (value) => value == null || value.isEmpty ? 'Enter name' : null,
-              ),
-              TextFormField(
-                controller: lastNameController,
-                decoration: const InputDecoration(labelText: 'Last Name'),
-                validator: (value) => value == null || value.isEmpty ? 'Enter last name' : null,
-              ),
-              TextFormField(
-                controller: domainController,
-                decoration: const InputDecoration(labelText: 'Domain'),
-                validator: (value) => value == null || value.isEmpty ? 'Enter domain' : null,
-              ),
-              TextFormField(
-                controller: hubController,
-                decoration: const InputDecoration(labelText: 'Hub'),
-                validator: (value) => value == null || value.isEmpty ? 'Enter hub' : null,
-              ),
-              TextFormField(
-                controller: batchController,
-                decoration: const InputDecoration(labelText: 'Batch'),
-                validator: (value) => value == null || value.isEmpty ? 'Enter batch' : null,
-              ),
-              TextFormField(
-                controller: dateController,
-                decoration: const InputDecoration(labelText: 'Date of Birth (DD)'),
-                validator: (value) => value == null || value.isEmpty ? 'Enter date' : null,
-              ),
-              TextFormField(
-                controller: monthController,
-                decoration: const InputDecoration(labelText: 'Month of Birth'),
-                validator: (value) => value == null || value.isEmpty ? 'Enter month' : null,
-              ),
-              TextFormField(
-                controller: genderController,
-                decoration: const InputDecoration(labelText: 'Gender'),
-                validator: (value) => value == null || value.isEmpty ? 'Enter gender' : null,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _saveStudent,
-                child: Text(widget.student == null ? 'Add' : 'Update'),
-              ),
-            ],
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            height: hi / 2,
+            width: wi / 2,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  height: double.infinity,
+                  width: wi / 5,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage("assets/images/bg removed.png"),
+                    ),
+                  ),
+                ),
+                Form(
+                  key: _formKey,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: wi / 4,
+                      child: ListView(
+                        children: [
+                          TextFormField(
+                            controller: nameController,
+                            decoration: const InputDecoration(labelText: 'Name'),
+                            validator: (value) =>
+                            value == null || value.isEmpty ? 'Enter name' : null,
+                          ),
+                          TextFormField(
+                            controller: lastNameController,
+                            decoration: const InputDecoration(labelText: 'Last Name'),
+                            validator: (value) =>
+                            value == null || value.isEmpty ? 'Enter last name' : null,
+                          ),
+                          TextFormField(
+                            controller: domainController,
+                            decoration: const InputDecoration(labelText: 'Domain'),
+                            validator: (value) =>
+                            value == null || value.isEmpty ? 'Enter domain' : null,
+                          ),
+                          TextFormField(
+                            controller: hubController,
+                            decoration: const InputDecoration(labelText: 'Hub'),
+                            validator: (value) =>
+                            value == null || value.isEmpty ? 'Enter hub' : null,
+                          ),
+                          TextFormField(
+                            controller: batchController,
+                            decoration: const InputDecoration(labelText: 'Batch'),
+                            validator: (value) =>
+                            value == null || value.isEmpty ? 'Enter batch' : null,
+                          ),
+                          DropdownButtonFormField<String>(
+                            value: selectedDay,
+                            decoration: const InputDecoration(
+                              labelText: 'Date of Birth (Day)',
+                            ),
+                            items: List.generate(31, (index) {
+                              final day = (index + 1).toString().padLeft(2, '0');
+                              return DropdownMenuItem(
+                                value: day,
+                                child: Text(day),
+                              );
+                            }),
+                            onChanged: (value) {
+                              setState(() {
+                                selectedDay = value;
+                              });
+                            },
+                            validator: (value) =>
+                            value == null || value.isEmpty ? 'Select day' : null,
+                          ),
+                          DropdownButtonFormField<String>(
+                            value: selectedMonth,
+                            decoration: const InputDecoration(
+                              labelText: 'Month of Birth',
+                            ),
+                            items: const [
+                              DropdownMenuItem(value: 'January', child: Text('January')),
+                              DropdownMenuItem(value: 'February', child: Text('February')),
+                              DropdownMenuItem(value: 'March', child: Text('March')),
+                              DropdownMenuItem(value: 'April', child: Text('April')),
+                              DropdownMenuItem(value: 'May', child: Text('May')),
+                              DropdownMenuItem(value: 'June', child: Text('June')),
+                              DropdownMenuItem(value: 'July', child: Text('July')),
+                              DropdownMenuItem(value: 'August', child: Text('August')),
+                              DropdownMenuItem(value: 'September', child: Text('September')),
+                              DropdownMenuItem(value: 'October', child: Text('October')),
+                              DropdownMenuItem(value: 'November', child: Text('November')),
+                              DropdownMenuItem(value: 'December', child: Text('December')),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                selectedMonth = value;
+                              });
+                            },
+                            validator: (value) =>
+                            value == null || value.isEmpty ? 'Select month' : null,
+                          ),
+                          DropdownButtonFormField<String>(
+                            value: selectedGender,
+                            decoration: const InputDecoration(
+                              labelText: 'Gender',
+                            ),
+                            items: const [
+                              DropdownMenuItem(value: 'Male', child: Text('Male')),
+                              DropdownMenuItem(value: 'Female', child: Text('Female')),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                selectedGender = value;
+                              });
+                            },
+                            validator: (value) =>
+                            value == null || value.isEmpty ? 'Select gender' : null,
+                          ),
+                          const SizedBox(height: 20),
+                          MaterialButton(
+                            height: hi/20,
+                            color: Colors.deepPurple,
+                            onPressed: _saveStudent,
+                            child: Text(widget.student == null ? 'Add Student' : 'Update',style: TextStyle(color: Colors.white)
+                            )
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

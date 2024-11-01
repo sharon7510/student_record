@@ -14,9 +14,7 @@ import 'presentation/screens/student_list_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
 }
 
@@ -57,7 +55,21 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Student Management',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: ThemeData(
+        primarySwatch: Colors.blue,
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.blueAccent,
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 16.0,
+            color: Colors.black87,
+          ),
+          // Add more custom styles here if needed
+        ),
+      ),
         home: StudentListScreen(),
       ),
     );
