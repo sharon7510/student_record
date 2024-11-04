@@ -193,6 +193,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
                             children: [
                               Column(
                                 mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(student.hub),
                                   Text(student.batch),

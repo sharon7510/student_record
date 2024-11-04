@@ -31,36 +31,6 @@ class StudentDetailScreen extends StatelessWidget {
     final wi = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      // floatingActionButton: Transform.translate(
-      //     offset: Offset(-hi/2.5, -hi/6.7),
-      //   child: Row(
-      //     mainAxisSize: MainAxisSize.min,
-      //     children: [
-      //       FloatingActionButton(
-      //         backgroundColor: Colors.deepPurpleAccent,
-      //         heroTag: 1,
-      //       onPressed: () {
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //             builder: (context) => StudentFormScreen(student: student),
-      //           ),
-      //         );
-      //       },child: Icon(Icons.edit,color: Colors.white),),
-      //       const SizedBox(width: 10,),
-      //       FloatingActionButton(
-      //         backgroundColor: Colors.deepPurpleAccent,
-      //         heroTag: 2,
-      //         onPressed: () async {
-      //           await studentProvider.deleteStudent(student.id);
-      //           ScaffoldMessenger.of(context).showSnackBar(
-      //             const SnackBar(content: Text("Student deleted")),
-      //           );
-      //           Navigator.pop(context); // Go back to the list screen
-      //         },child: Icon(Icons.delete,color: Colors.white,),),
-      //     ],
-      //   ),
-      // ),
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: Text('${student.name.toUpperCase()} ${student.lastName.toUpperCase()}'),
@@ -118,7 +88,7 @@ class StudentDetailScreen extends StatelessWidget {
                                   builder: (context) => StudentFormScreen(student: student),
                                 ),
                               );
-                            },child: Icon(Icons.edit,color: Colors.white),),
+                            },child: const Icon(Icons.edit,color: Colors.white),),
                           const SizedBox(width: 10,),
                           FloatingActionButton(
                             backgroundColor: Colors.deepPurpleAccent,
@@ -129,7 +99,7 @@ class StudentDetailScreen extends StatelessWidget {
                                 const SnackBar(content: Text("Student deleted")),
                               );
                               Navigator.pop(context); // Go back to the list screen
-                            },child: Icon(Icons.delete,color: Colors.white,),),
+                            },child: const Icon(Icons.delete,color: Colors.white,),),
                         ],
                       ),
                     ),

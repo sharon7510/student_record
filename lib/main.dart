@@ -55,21 +55,20 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Student Management',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: const TextTheme(
-          titleLarge: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.blueAccent,
-          ),
-          bodyLarge: TextStyle(
-            fontSize: 16.0,
-            color: Colors.black87,
-          ),
-          // Add more custom styles here if needed
-        ),
-      ),
+      //   theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      //   textTheme: const TextTheme(
+      //     titleLarge: TextStyle(
+      //       fontSize: 20.0,
+      //       fontWeight: FontWeight.bold,
+      //       color: Colors.blueAccent,
+      //     ),
+      //     bodyLarge: TextStyle(
+      //       fontSize: 16.0,
+      //       color: Colors.black87,
+      //     ),
+      //   ),
+      // ),
         home: StudentListScreen(),
       ),
     );
